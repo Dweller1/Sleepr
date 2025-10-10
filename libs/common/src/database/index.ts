@@ -1,0 +1,4 @@
+//whenever we want to use something from a common library - we have to export it from index.ts
+export * from './database.module';
+export * from './abstract.repository';
+export * from './base.model';
