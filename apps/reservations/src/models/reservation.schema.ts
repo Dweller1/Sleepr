@@ -1,8 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { BaseSchema } from '@app/common';
+import { BaseSchema } from '@app/common/abstract/base.model';
 
 @Schema({ timestamps: true })
-export class ReservationDocument extends BaseSchema {
+export class Reservation extends BaseSchema {
   @Prop({ required: true })
   timestamp: Date;
 
@@ -22,5 +22,6 @@ export class ReservationDocument extends BaseSchema {
   invoiceId: string;
 }
 
-export const ReservationSchema =
-  SchemaFactory.createForClass(ReservationDocument);
+export const ReservationSchema = SchemaFactory.createForClass(Reservation);
+
+export type ReservationDocument = Reservation & Document;

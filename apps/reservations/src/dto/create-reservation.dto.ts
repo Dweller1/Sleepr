@@ -1,4 +1,4 @@
-import { BaseSchema } from '@app/common';
+import { BaseSchema } from '@app/common/abstract/base.model';
 import { Type } from 'class-transformer';
 import { IsDate, IsNotEmpty, IsString } from 'class-validator';
 

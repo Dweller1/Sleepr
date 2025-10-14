@@ -7,8 +7,8 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { CreateReservationDto } from '../dto/create-reservation.dto';
-import { UpdateReservationDto } from '../dto/update-reservation.dto';
+import { CreateReservationDto } from '../src/dto/create-reservation.dto';
+import { UpdateReservationDto } from '../src/dto/update-reservation.dto';
 import { ReservationsRepository } from './reservations.repository';
 import { Types } from 'mongoose';
 

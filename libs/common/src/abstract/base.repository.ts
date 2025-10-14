@@ -1,21 +1,11 @@
-import {
-  HttpException,
-  Injectable,
-  Logger,
-  NotFoundException,
-} from '@nestjs/common';
+import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { FilterQuery, Model, Types, UpdateQuery } from 'mongoose';
 import { PinoLogger } from 'nestjs-pino';
-
-export interface BaseDocument {
-  _id: Types.ObjectId;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
+import { BaseDocument } from './base.document.type';
+// TDocument must contain _id, createdAt, updatedAt. TDocument is supposed to be the service
 @Injectable()
-export abstract class AbstractRepository<TDocument extends BaseDocument> {
-  protected abstract readonly logger: PinoLogger;
+export class BaseRepository<TDocument extends BaseDocument> {
+  protected readonly logger: PinoLogger;
 
   constructor(protected readonly model: Model<TDocument>) {}
 
