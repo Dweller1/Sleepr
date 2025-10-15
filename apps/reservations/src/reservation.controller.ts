@@ -17,33 +17,40 @@ export class ReservationController {
   constructor(private readonly reservationService: ReservationsRepository) {}
 
   @Post()
-  create(@Body() createReservationDto: CreateReservationDto) {
-    return this.reservationService.createReservation(createReservationDto);
+  async create(@Body() createReservationDto: CreateReservationDto) {
+    return await this.reservationService.createReservation(
+      createReservationDto,
+    );
   }
 
   @Get()
-  findAll() {
-    return this.reservationService.findAllReservations();
+  async findAll() {
+    return await this.reservationService.findAllReservations();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: Types.ObjectId) {
-    return this.reservationService.findOneReservation(id);
+  async findOne(@Param('id') id: Types.ObjectId) {
+    return await this.reservationService.findOneReservation(id);
   }
 
   @Patch(':id')
-  update(
+  async update(
     @Param('id') id: Types.ObjectId,
     @Body() updateReservationDto: UpdateReservationDto,
   ) {
-    return this.reservationService.findAndUpdateReservation(
+    return await this.reservationService.findAndUpdateReservation(
       id,
       updateReservationDto,
     );
   }
 
   @Delete(':id')
-  remove(@Param('id') id: Types.ObjectId) {
-    this.reservationService.findAndDeleteReservation(id);
+  async remove(@Param('id') id: Types.ObjectId) {
+    await this.reservationService.findAndDeleteReservation(id);
+  }
+
+  @Get(':id')
+  async findManyReservations(@Param('id') reservation: CreateReservationDto) {
+    return this.reservationService.findManyReservations(reservation);
   }
 }

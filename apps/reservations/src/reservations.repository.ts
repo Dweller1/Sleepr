@@ -16,7 +16,7 @@ export class ReservationsRepository extends BaseRepository<Reservation> {
   }
 
   async createReservation(reservation: CreateReservationDto) {
-    return this.create(reservation);
+    return await this.create(reservation);
   }
 
   async findOneReservation(filterQuery: FilterQuery<Reservation>) {
@@ -32,7 +32,9 @@ export class ReservationsRepository extends BaseRepository<Reservation> {
     });
   }
 
-  async findManyReservations(filterQuery: FilterQuery<Reservation>) {
+  async findManyReservations(
+    filterQuery: FilterQuery<Reservation>,
+  ): Promise<Reservation[]> {
     return await this.findMany(filterQuery);
   }
 

@@ -10,14 +10,19 @@ import * as bcrypt from 'bcrypt';
 // intercepting password, hashing and returning it before the route handler goes off
 @Injectable()
 export class PasswordInterceptor implements NestInterceptor {
-  intercept(
+  async intercept(
     context: ExecutionContext,
     next: CallHandler<any>,
-  ): Observable<any> | Promise<Observable<any>> {
-    let user = context.switchToHttp().getRequest();
-    let { password, rest } = user;
-    const hashedPassword = bcrypt.hash(password, 10);
-    user = { password: hashedPassword, rest };
+  ): Promise<Observable<any>> {
+    const request = context.switchToHttp().getRequest();
+    const { password, ...rest } = request.body;
+    if (password) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      request.body = {
+        ...rest,
+        password: hashedPassword,
+      };
+    }
     return next.handle();
   }
 }

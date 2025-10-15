@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { BaseSchema } from '@app/common/abstract/base.model';
+import mongoose, { Types } from 'mongoose';
 
 @Schema({ timestamps: true })
 export class Reservation extends BaseSchema {
@@ -12,8 +13,8 @@ export class Reservation extends BaseSchema {
   @Prop({ required: true })
   endDate: Date;
 
-  @Prop({ required: true })
-  userId: string;
+  @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+  userId: Types.ObjectId;
 
   @Prop({ required: true })
   placeId: string;

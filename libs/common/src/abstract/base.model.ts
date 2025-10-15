@@ -3,13 +3,13 @@ import { BaseDocument } from './base.document.type';
 import { Types } from 'mongoose';
 
 export class BaseSchema implements BaseDocument {
-  @Prop()
+  @Prop({ unique: true, required: true })
   _id: Types.ObjectId;
 
-  @Prop()
+  @Prop({ required: true })
   createdAt: Date;
 
-  @Prop()
+  @Prop({ required: true })
   updatedAt: Date;
 }
 

@@ -1,6 +1,13 @@
 import { BaseSchema } from '@app/common/abstract/base.model';
 import { Type } from 'class-transformer';
-import { IsDate, IsNotEmpty, IsString } from 'class-validator';
+import {
+  IsDate,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
+import { Types } from 'mongoose';
 
 export class CreateReservationDto extends BaseSchema {
   @IsDate()
@@ -15,11 +22,14 @@ export class CreateReservationDto extends BaseSchema {
 
   @IsDate()
   @IsNotEmpty()
+  @Type(() => Date)
   endDate: Date;
 
+  // there should be no reservation without user that's why userId is not optional
+  //@ValidateNested()
   @IsString()
   @IsNotEmpty()
-  userId: string;
+  userId: Types.ObjectId; // maybe incorrect
 
   @IsString()
   @IsNotEmpty()
