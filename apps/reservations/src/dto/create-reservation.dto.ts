@@ -29,7 +29,7 @@ export class CreateReservationDto extends BaseSchema {
   //@ValidateNested()
   @IsString()
   @IsNotEmpty()
-  userId: Types.ObjectId; // maybe incorrect
+  userId: Types.ObjectId;
 
   @IsString()
   @IsNotEmpty()

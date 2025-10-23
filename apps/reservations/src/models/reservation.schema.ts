@@ -5,9 +5,6 @@ import mongoose, { Types } from 'mongoose';
 @Schema({ timestamps: true })
 export class Reservation extends BaseSchema {
   @Prop({ required: true })
-  timestamp: Date;
-
-  @Prop({ required: true })
   startDate: Date;
 
   @Prop({ required: true })

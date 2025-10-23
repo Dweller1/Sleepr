@@ -9,11 +9,10 @@ export class BaseRepository<TDocument extends BaseDocument> {
 
   constructor(protected readonly model: Model<TDocument>) {}
 
-  async create(document: Omit<TDocument, '_id'>): Promise<TDocument> {
-    const createdDocument = new this.model({
-      ...document,
-      _id: new Types.ObjectId(),
-    });
+  async create(
+    document: Omit<TDocument, '_id' | 'created_at' | 'updated_at'>,
+  ): Promise<TDocument> {
+    const createdDocument = new this.model(document);
     if (!createdDocument) {
       this.logger.debug(`The document was not created ${document}`);
       throw new HttpException('document was not created', 400);

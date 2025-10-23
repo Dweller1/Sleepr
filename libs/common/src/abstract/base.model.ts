@@ -1,16 +1,15 @@
-import { Prop, SchemaFactory } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { BaseDocument } from './base.document.type';
 import { Types } from 'mongoose';
 
+@Schema({ timestamps: true, id: true })
 export class BaseSchema implements BaseDocument {
-  @Prop({ unique: true, required: true })
+  @Prop({
+    type: Types.ObjectId,
+    default: () => new Types.ObjectId(),
+    required: true,
+  })
   _id: Types.ObjectId;
-
-  @Prop({ required: true })
-  createdAt: Date;
-
-  @Prop({ required: true })
-  updatedAt: Date;
 }
 
 export const BaseSchemaFactory = SchemaFactory.createForClass(BaseSchema);

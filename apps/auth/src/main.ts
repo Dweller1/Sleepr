@@ -24,7 +24,7 @@ async function bootstrap() {
       disableErrorMessages: false,
     }),
   );
-  await app.listen(process.env.PORT ?? 3000);
+  await app.listen(8000);
 }
 bootstrap().catch((err) => {
   const fs = require('fs');

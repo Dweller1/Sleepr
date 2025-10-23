@@ -1,14 +1,11 @@
-import { BaseSchema } from '@app/common';
 import {
   IsEmail,
   IsNotEmpty,
-  IsOptional,
   IsString,
   IsStrongPassword,
 } from 'class-validator';
-import { Types } from 'mongoose';
 
-export class CreateUserDto extends BaseSchema {
+export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
   name: string;
@@ -20,11 +17,6 @@ export class CreateUserDto extends BaseSchema {
   @IsStrongPassword()
   @IsNotEmpty()
   password: string;
-
-  // @IsNotEmpty()
-  // @IsString()
-  // @IsOptional()
-  // reservations?: Types.ObjectId[];
 }
 
 export type CreateUserType = typeof CreateUserDto;

@@ -11,8 +11,8 @@ import {
 
 @Module({
   imports: [
-    DatabaseModule,
     CommonLogger,
+    DatabaseModule,
     MongooseModule.forFeature([
       { name: User.name, schema: UserSchema },
       {

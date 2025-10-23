@@ -6,40 +6,54 @@ import {
   Param,
   Patch,
   Post,
+  Query,
+  UseInterceptors,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create.user.dto';
 import { Types } from 'mongoose';
 import { UpdateUserDto } from './dto/update.user.dto';
+import { PasswordInterceptor } from '../interceptors/password.interceptor';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Get(':id')
-  async findOneUser(@Param('id') id: Types.ObjectId) {
-    return await this.usersService.findOne(id);
+  @Post('create')
+  @UseInterceptors(PasswordInterceptor)
+  async createUser(@Body() createUser: CreateUserDto) {
+    return await this.usersService.createUser(createUser);
   }
 
-  @Get()
+  @Get('all')
   async findAll() {
     return await this.usersService.findAll();
   }
 
+  @Get(':id')
+  async findOneUser(@Param('id') id: string) {
+    return await this.usersService.findOne({ _id: new Types.ObjectId(id) });
+  }
+
   @Patch(':id')
   async findOneAndUpdate(
-    @Param('id') id: Types.ObjectId,
+    @Param('id') id: string,
     @Body() updateUser: UpdateUserDto,
   ) {
-    return await this.usersService.findOneAndUpdate(id, updateUser);
+    return await this.usersService.findOneAndUpdate(
+      { _id: new Types.ObjectId(id) },
+      updateUser,
+    );
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: Types.ObjectId) {
-    await this.usersService.findOneAndDeleteUser(id);
+  async remove(@Param('id') id: string) {
+    await this.usersService.findOneAndDeleteUser({
+      _id: new Types.ObjectId(id),
+    });
   }
-  @Get(':id')
-  async getManyUsers(@Param('id') user: CreateUserDto) {
+  @Get()
+  async getManyUsers(@Query() user: CreateUserDto) {
     return await this.usersService.findMany(user);
   }
 }
